@@ -7,7 +7,7 @@ const dotenv = require('dotenv').config()
 exports.signup = async(req, res) =>{
     try{
     const {email, firstname, lastname, password, confirmpassword} = req.body
-    const user = await User.findone({email})
+    const user = await User.findOne({email})
     if (user) return res.status(400).send({
         message: 'User already exist'
     })
@@ -41,7 +41,7 @@ exports.signup = async(req, res) =>{
 exports.signin = async(req, res) =>{
     try{
         const {email, password} = req.body
-        const user = await User.findone({email})
+        const user = await User.findOne({email})
         if(!user) return res.status(400).send({
             message:'user does not exist'
         })
@@ -54,7 +54,10 @@ exports.signin = async(req, res) =>{
               });
             delete user.password
             res.status(200).send({
-                data:user,
+                email:user.email,
+                lastname:user.lastname,
+                firstname:user.firstname,
+                id: user._id,
                 token:token
                 })
             }

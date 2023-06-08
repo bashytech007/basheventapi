@@ -16,13 +16,13 @@ exports.signup = async(req, res) =>{
         message: 'Passwords do not match'
     })
 
-    const hashpassword = await bcrypt.hash(password, 12)
+    // const hashpassword = await bcrypt.hash(password, 12)
 
     const newUser = new User({
         email:email,
         firstname:firstname,
         lastname:lastname,
-        password:hashpassword
+        // password:hashpassword
     })
 
     await newUser.save();

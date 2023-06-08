@@ -22,7 +22,7 @@ exports.signup = async(req, res) =>{
         email:email,
         firstname:firstname,
         lastname:lastname,
-        // password:hashpassword
+        password
     })
 
     await newUser.save();
@@ -45,8 +45,8 @@ exports.signin = async(req, res) =>{
         if(!user) return res.status(400).send({
             message:'user does not exist'
         })
-        const isPasswordMatch = await bcrypt.compare(password, user.password)
-        if(!isPasswordMatch) return res.status(400).send({
+        // const isPasswordMatch = await bcrypt.compare(password, user.password)
+        if(user.password !== password) return res.status(400).send({
             message:'password is incorrect'
             })
             const token = jwt.sign({ _id: user._id}, process.env.JWTSECRET, {
